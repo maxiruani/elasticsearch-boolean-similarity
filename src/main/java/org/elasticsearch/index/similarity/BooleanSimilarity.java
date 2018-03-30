@@ -51,12 +51,17 @@ public class BooleanSimilarity extends Similarity {
     }
 
     @Override
+    public float coord(int overlap, int maxOverlap) {
+        return 1.0F;
+    }
+
+    @Override
     public SimWeight computeWeight(CollectionStatistics collectionStats, TermStatistics... termStats) {
         return new BooleanWeight();
     }
 
     private static class BooleanWeight extends SimWeight {
-        float boost = 1f;
+        float boost = 1.0F;
 
         @Override
         public void normalize(float queryNorm, float boost) {
@@ -65,7 +70,7 @@ public class BooleanSimilarity extends Similarity {
 
         @Override
         public float getValueForNormalization() {
-            return 1f;
+            return 1.0F;
         }
     }
 
@@ -91,12 +96,12 @@ public class BooleanSimilarity extends Similarity {
 
             @Override
             public float computeSlopFactor(int distance) {
-                return 1f;
+                return 1.0F;
             }
 
             @Override
             public float computePayloadFactor(int doc, int start, int end, BytesRef payload) {
-                return 1f;
+                return 1.0F;
             }
         };
     }

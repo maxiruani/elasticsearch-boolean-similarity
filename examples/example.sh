@@ -12,6 +12,9 @@ curl -s -XPOST "http://localhost:9200/test_index" -d '
     "similarity": {
       "booleanSimilarity": {
         "type": "boolean-similarity"
+      },
+      "base": {
+        "type": "boolean-similarity"
       }
     }
   }
@@ -58,7 +61,7 @@ curl -s -XPOST "http://localhost:9200/test_index/_refresh"
 
 echo
 echo
-echo 'Default: Expect all with Query Norm'
+echo 'Default: Expect TF-IDF'
 
 curl -s "localhost:9200/test_index/test_type/_search?pretty=true" -d '
 {
@@ -76,7 +79,7 @@ curl -s "localhost:9200/test_index/test_type/_search?pretty=true" -d '
 
 echo
 echo
-echo 'Custom: Expect all without Query Norm'
+echo 'Custom: Expect Boolean'
 
 curl -s "localhost:9200/test_index/test_type/_search?pretty=true" -d '
 {
@@ -90,30 +93,5 @@ curl -s "localhost:9200/test_index/test_type/_search?pretty=true" -d '
       }
     }
   }
-}
-'
-
-
-echo
-echo
-echo 'Custom: Constant score - Expect all without Query Norm'
-
-curl -s "localhost:9200/test_index/test_type/_search?pretty=true" -d '
-{
-  "explain": true,
-  "from": 0,
-  "query": {
-    "constant_score": {
-      "query": {
-        "match": {
-          "field2": {
-            "query": "customer service representative",
-            "operator": "or"
-          }
-        }
-      }
-    }
-  }
-
 }
 '
