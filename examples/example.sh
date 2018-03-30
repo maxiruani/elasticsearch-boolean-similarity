@@ -10,8 +10,8 @@ curl -s -XPOST "http://localhost:9200/test_index" -d '
       "number_of_replicas": 0
     },
     "similarity": {
-      "defaultWithoutQueryNormSimilarity": {
-        "type": "default-without-query-norm-similarity"
+      "booleanSimilarity": {
+        "type": "boolean-similarity"
       }
     }
   }
@@ -32,7 +32,7 @@ curl -XPUT 'localhost:9200/test_index/test_type/_mapping' -d '
       "field2": {
         "type": "string",
         "analyzer": "standard",
-        "similarity": "defaultWithoutQueryNormSimilarity",
+        "similarity": "booleanSimilarity",
         "norms": {
           "enabled": false
         }
